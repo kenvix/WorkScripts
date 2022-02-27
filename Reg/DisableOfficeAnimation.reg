@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\15.0\Common\Graphics]
+"DisableAnimations"=dword:00000001
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Common\Graphics]
+"DisableAnimations"=dword:00000001
