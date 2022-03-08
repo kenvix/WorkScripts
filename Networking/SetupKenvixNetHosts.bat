@@ -1,0 +1,2 @@
+@echo off
+C:\RT\Anaconda3R\python.exe C:\Work-Station\Scripts\hostsman.py -i kds:172.20.1.7 ds.kenvix.com:172.20.1.7 pass.kenvix.com:172.20.1.8 kus:172.20.1.8 kus.kenvix.com:172.20.1.8 swrt:172.20.1.1 ksoftwrt:172.20.1.1 swrt.kenvix.com:172.20.1.1
