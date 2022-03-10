@@ -1,0 +1,14 @@
+[Unit]
+Description=Kenvix Scream Unicast User Service // By Kenvix
+After=network.target local_fs.target remote_fs.target bluetooth.target
+Wants=network.target 
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/scream -u -p 4011
+RestartSec=5s
+Restart=on-failure
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=default.target
