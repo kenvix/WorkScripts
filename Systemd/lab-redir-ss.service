@@ -1,0 +1,14 @@
+[Unit]
+Description=Kenvix AI+Mobile Lab Shadowsocks Redirector
+After=network.target local_fs.target remote_fs.target
+Wants=network.target 
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/socat TCP4-LISTEN:15000,fork TCP4:192.168.192.1:15000
+RestartSec=5s
+Restart=on-failure
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=default.target
