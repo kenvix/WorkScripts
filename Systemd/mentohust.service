@@ -1,0 +1,15 @@
+[Unit]
+Description=Kenvix Mentohust Service
+After=network.target local_fs.target remote_fs.target
+Wants=network.target 
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mentohust 
+RestartSec=5s
+Restart=on-failure
+LogLevelMax=6
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=default.target
