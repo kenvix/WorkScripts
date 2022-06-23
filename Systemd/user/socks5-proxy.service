@@ -1,0 +1,14 @@
+[Unit]
+Description=Kenvix GO Socks5 Proxy Server User Service
+After=network.target local_fs.target remote_fs.target
+Wants=network.target 
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c "%h/services/socks5"
+RestartSec=5s
+Restart=on-failure
+Environment="PROXY_PORT=1081"
+
+[Install]
+WantedBy=multi-user.target
