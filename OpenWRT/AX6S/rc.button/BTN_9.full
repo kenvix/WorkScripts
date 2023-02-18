@@ -1,0 +1,71 @@
+#!/bin/sh
+# Push mesh button to restart total network
+# by kenvix
+ENABLE_LAN_CHECK=0
+
+# 0 always disabled
+# 1 enabled if mtkwifi is installed
+# 3 and link mtkwifi to /sbin/wifi
+USE_MTK_WIFI=1
+
+logger -t MeshButton "Mesh Button Action ${ACTION}."
+
+if [ "${ACTION}" == "released" ]; then
+    echo "Mesh Button Action Released. Ignored."
+    exit 0
+fi 
+
+logger -t MeshButton "Mesh Button Action Pressed. Going to restart total network."
+
+echo "Going to restart total network."
+
+# Check if wireless config of LAN Interface is correct
+# Make sure rai0 and ra0 is in LAN Interface
+if [ $ENABLE_LAN_CHECK -eq 1 ]; then
+    lanCheck=`uci get network.lan.ifname`
+    if [ $? -eq 0 ]; then
+        echo $lanCheck | grep rai0 > /dev/null
+        if [ $? -ne 0 ]; then
+            uci set network.lan.ifname="$lanCheck rai0 ra0"
+            uci commit
+            echo "Updated wireless config of LAN Interface"
+        fi
+        echo "No need to update wireless config of LAN Interface"
+    else
+        echo "wireless config of LAN Interface check failed. Interface may renamed." >&2
+    fi
+else
+    echo "LAN Interface check disabled."
+fi
+
+if [ $USE_MTK_WIFI -ne 0 ]; then
+    echo "Checking MTK WiFi support..."
+    if ! [ -x "$(command -v mtkwifi)" ]; then
+        echo 'Warning: mtkwifi is not installed.' >&2
+        HAS_MTK_WIFI=0
+    else
+        HAS_MTK_WIFI=1
+    fi
+fi
+
+# if [ $USE_MTK_WIFI -eq 3 ] && [ $HAS_MTK_WIFI -eq 1 ]; then
+#     if [ -f /sbin/wifi ]; then
+#         echo "Linking mtkwifi to /sbin/wifi ..."
+#         ln -sf /sbin/mtkwifi /sbin/wifi
+#     else
+#         echo "Warning: /sbin/wifi not found. MTK WiFi may not work." >&2
+#     fi
+# fi
+
+echo "Restarting Network ..."
+/etc/init.d/network restart
+
+if [ $USE_MTK_WIFI -gt 0 ] && [ $HAS_MTK_WIFI -eq 1 ]; then
+    echo "Sleep 3s ..."
+    sleep 3s
+    echo "Restarting MTK WiFi ..."
+    mtkwifi reload ra0
+    mtkwifi reload rai0
+fi
+
+logger -t MeshButton "Network Restarted."

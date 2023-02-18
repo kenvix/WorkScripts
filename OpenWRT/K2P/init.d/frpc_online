@@ -1,0 +1,28 @@
+#!/bin/sh /etc/rc.common
+START=99
+start() {
+    ubus wait_for network.interface.lan
+    
+    # check /tmp/frps exists 
+    if [ ! -f /tmp/frps ]; then
+        echo "frps not found, downloading ..."
+        wgetResult=99
+        # do download until success
+        while [ wgetResult -ne 0 ]; do
+            echo "download failed, retrying ..."
+            wget "https://ds.kenvix.com:5010/mipsle/frps" -O /tmp/frps
+            wgetResult=$?
+        done
+        chmod +x /tmp/frps
+    fi
+    
+    ((/tmp/frps -c /root/frps.ini)&)&
+}
+stop() {
+    # kill your pid
+    kill -9 $(ps | grep '/tmp/frps' | grep -v 'grep' | awk '{print $1}')
+}
+restart() {
+    kill -9 $(ps | grep '/tmp/frps' | grep -v 'grep' | awk '{print $1}')
+    start
+}

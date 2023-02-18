@@ -1,27 +1,21 @@
-#!/bin/bash
+#!/bin/sh
 # Push mesh button to restart total network
 # by kenvix
 
 logger -t MeshButton "Mesh Button Action ${ACTION}."
 
-[ "${ACTION}" = "released" ] || exit 0
-logger -t MeshButton "Mesh Button Action Pressed. Going to restart total network."
+if [ "${ACTION}" == "released" ]; then
+    echo "Mesh Button Action Released. Ignored."
+    exit 0
+fi 
 
-# Check if wireless config of LAN Interface is correct
-# Make sure rai0 and ra0 is in LAN Interface
-lanCheck=`uci get network.lan.ifname`
-if [ $? -eq 0 ]; then
-    echo $lanCheck | grep rai0 > /dev/null
-    if [ $? -ne 0 ]; then
-        uci set network.lan.ifname="$lanCheck rai0 ra0"
-        uci commit
-        echo "Updated wireless config of LAN Interface"
-    fi
-    echo "No need to update wireless config of LAN Interface"
-else
-    echo "wireless config of LAN Interface check failed. Interface may renamed." >&2
-fi
+logger -t MeshButton "Mesh Button Action Pressed. Going to restart WAN."
 
-/etc/init.d/network restart
+echo "Going to set WAN down -- ubus: wan"
+ubus call network.interface.wan down
+echo "WAN is Down. Waiting ubus WAN interface"
+ubus wait_for network.interface.wan
+echo "WAN is ready. Going to set WAN up"
+ubus call network.interface.wan up
 
-logger -t MeshButton "Network Restarted."
+logger -t MeshButton "WAN Restarted."
