@@ -10,6 +10,7 @@ shopt -s extglob
 export LC_ALL=C
 
 CONFIG_FILE="$1"
+RERESOLVE_PEROID="7m"
 [[ $CONFIG_FILE =~ ^[a-zA-Z0-9_=+.-]{1,15}$ ]] && CONFIG_FILE="/etc/wireguard/$CONFIG_FILE.conf"
 [[ $CONFIG_FILE =~ /?([a-zA-Z0-9_=+.-]{1,15})\.conf$ ]]
 INTERFACE="${BASH_REMATCH[1]}"
@@ -42,4 +43,8 @@ while read -r line || [[ -n $line ]]; do
 		esac
 	fi
 done < "$CONFIG_FILE"
-process_peer
+
+while true; do
+	process_peer
+	sleep $RERESOLVE_PEROID
+done
