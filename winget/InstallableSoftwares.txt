@@ -1,0 +1,4 @@
+winscp
+vscode
+gsudo
+HermannSchinagl.LinkShellExtension

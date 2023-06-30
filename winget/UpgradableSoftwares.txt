@@ -1,0 +1,5 @@
+wingetui
+DEVCOM.JetBrainsMonoNerdFont
+winscp
+gsudo
+HermannSchinagl.LinkShellExtension

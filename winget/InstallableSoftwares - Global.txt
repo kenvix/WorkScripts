@@ -1,0 +1,3 @@
+Azul.Zulu.17.JDK
+Azul.Zulu.8.JDK
+Azul.Zulu.11.JDK
