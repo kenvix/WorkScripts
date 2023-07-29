@@ -2,3 +2,8 @@ winscp
 vscode
 gsudo
 HermannSchinagl.LinkShellExtension
+voidtools.Everything
+AutoHotkey.AutoHotkey
+qBittorrent.qBittorrent
+Oracle.MySQL
+PostgreSQL.PostgreSQL
