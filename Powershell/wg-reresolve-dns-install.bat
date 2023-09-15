@@ -1,0 +1,1 @@
+shawl add --name WireGuard-Reresolve -- powershell -NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -Command "C:\Work-Station\Scripts\Powershell\WireGuard-Reresolve.ps1" -LoopRunAsCron -DelaySeconds 600
