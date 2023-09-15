@@ -1,0 +1,1 @@
+powershell -NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -Command "Get-ChildItem -File '%programfiles%\wireguard\data\configurations\*.dpapi' | foreach {& %~dp0\wg-reresolve-dns.ps1 $_.FullName}"
