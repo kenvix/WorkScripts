@@ -1,9 +1,1 @@
-winscp
-vscode
-gsudo
-HermannSchinagl.LinkShellExtension
-voidtools.Everything
-AutoHotkey.AutoHotkey
-qBittorrent.qBittorrent
-Oracle.MySQL
-PostgreSQL.PostgreSQL
+winscp vscode gsudo HermannSchinagl.LinkShellExtension voidtools.Everything AutoHotkey.AutoHotkey qBittorrent.qBittorrent Oracle.MySQL PostgreSQL.PostgreSQL chrisant996.Clink Starship.Starship

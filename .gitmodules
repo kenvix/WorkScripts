@@ -1,3 +1,6 @@
 [submodule "Private"]
 	path = Private
 	url = https://github.com/kenvix/Scripts-Private
+[submodule "ahk2_lib"]
+	path = ahk2_lib
+	url = https://github.com/thqby/ahk2_lib.git
