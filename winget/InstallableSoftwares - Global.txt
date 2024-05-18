@@ -1,3 +1,1 @@
-Azul.Zulu.17.JDK
-Azul.Zulu.8.JDK
-Azul.Zulu.11.JDK
+Azul.Zulu.17.JDK Azul.Zulu.8.JDK Azul.Zulu.11.JDK AdGuardHome GNU.Nano RClone Restic Ookla.Speedtest.CLI vim.vim

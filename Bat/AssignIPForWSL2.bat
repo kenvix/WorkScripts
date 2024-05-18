@@ -1,8 +1,16 @@
 @echo off
-title Assign IP for WSL2
-cd /d %~dp0
-wsl -d Ubuntu2 -u root ip addr add 192.0.0.2/29 broadcast 192.168.0.7 dev eth0 label eth0:1
-netsh interface ip add address "vEthernet (WSL)" 192.0.0.1 255.255.255.248
-powershell.exe -NonInteractive -NoLogo -NoProfile -File DisableWsl2Firewall.ps1
-timeout /T 5
-WSLAttachSwitch.exe --mac 9e:d5:8b:58:85:a7  Ethernet-Virt
+cd /d "%~dp0"
+REM Get the hostname and store it in a variable
+for /f "tokens=* delims=" %%x in ('hostname') do set HOSTNAME=%%x
+
+REM Construct the filename
+set FILENAME=AssignIPForWSL2-%HOSTNAME%.bat
+
+REM Check if the file exists
+if exist "%FILENAME%" (
+    REM Execute the file
+    call "%FILENAME%"
+) else (
+    echo The file %FILENAME% does not exist.
+)
+
