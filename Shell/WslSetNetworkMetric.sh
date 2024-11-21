@@ -26,7 +26,7 @@ if [ -z "$default_gw" ]; then
   echo "无法找到eth0接口的默认网关"
 else
   # 删除当前的默认路由
-  ip route del default
+  ip route del default via $default_gw dev eth0
 
   # 重新添加默认路由并设置metric为1000
   ip route add default via $default_gw dev eth0 metric 1000
