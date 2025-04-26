@@ -15,7 +15,7 @@ WSLAttachSwitch.exe --mac 9e:d5:8b:58:85:a7  Ethernet-Virt
 
 echo Setting network metric...
 wsl -d Ubuntu2 -u root "/mnt/c/Work-Station/Scripts/Shell/WslSetNetworkMetric.sh"
-
+@REM wsl -d Ubuntu2 -u root ip link set dev eth1 address 9e:d5:8b:58:85:a7
 WSLHostPatcher.exe
 
 rem echo Disable eth0 to avoid network issues...
